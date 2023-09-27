@@ -38,6 +38,15 @@ export POSTGRES_PASSWORD='yourpassword'
 python3 init_db.py
 ```
 
+### Requirements
+
+```bash
+pip install -r requirements.txt
+
+if you are on Debian, you may need to do this installation :
+sudo apt-get install libpq-dev
+```
+
 ## Launching the project
 
 
