@@ -38,6 +38,10 @@ export POSTGRES_PASSWORD='yourpassword'
 python3 init_db.py
 ```
 
+## Launching the project
+
+
+
 ## Documentation
 
 - https://flask-user.readthedocs.io/en/latest/index.html
