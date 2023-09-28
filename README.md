@@ -26,16 +26,17 @@ GRANT ALL PRIVILEGES ON DATABASE rbacauth TO youruser;
 
 \c rbacauth;
 
-# to connect to database
-
-psql -U youruser yourdb
-
 # to populate the database 
 
 export POSTGRES_USER='youruser'
 export POSTGRES_PASSWORD='yourpassword'
 
 python3 init_db.py
+
+# to connect to database
+
+psql -U youruser yourdb
+
 ```
 
 ### Requirements
@@ -50,6 +51,9 @@ sudo apt-get install libpq-dev
 ## Launching the project
 
 
+```bash
+python3 run.py
+```
 
 ## Documentation
 
