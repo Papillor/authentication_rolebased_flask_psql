@@ -52,9 +52,14 @@ sudo apt-get install libpq-dev
 
 
 ```bash
-python3 run.py
+export FLASK_APP=app
+export FLASK_DEBUG=true
+
+flask run
 ```
 
 ## Documentation
 
-- https://flask-user.readthedocs.io/en/latest/index.html
+- https://flask.palletsprojects.com/en/2.3.x/
+- https://pypi.org/project/psycopg2/
+
