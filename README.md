@@ -19,12 +19,12 @@ source myenv/bin/activate
 ```psql
 # create the db
 
-CREATE DATABASE bookstore;
-GRANT ALL PRIVILEGES ON DATABASE bookstore TO youruser;
+CREATE DATABASE rbacauth;
+GRANT ALL PRIVILEGES ON DATABASE rbacauth TO youruser;
 
 # select the db
 
-\c bookstore;
+\c rbacauth;
 
 # to connect to database
 

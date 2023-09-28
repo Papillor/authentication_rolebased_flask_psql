@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Login </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='login_register.css') }}">
+</head>
+
+<body class="login_body">
+  <div class="login_comp">
+    <header>
+      <h1>Log in</h1>
+    </header>
+    <form class="login_form" action="{{ url_for('login') }}" method="post">
+      <div class="msg">{{ msg }}</div>
+      <div class="login_input">
+        <label class="login_label" for="username">Username</label>
+        <input class="login_input_obj" id="username" name="username" type="text" placeholder="ex: little_bookworm" />
+      </div>
+      <div class="login_input">
+        <label class="login_label" for="password">Password</label>
+        <input class="login_input_obj" id="password" name="password" type="password" placeholder="ex: xxxxxxxx" />
+      </div>
+      <input type="submit" class="login_btn" value="Sign In">
+    </form>
+    <footer>Don't have an account? <a class="cta_btn" href="{{url_for('register')}}"> Sign up here</a></footer>
+  </div>
+</body>
+
+</html>
