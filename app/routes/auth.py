@@ -3,13 +3,28 @@ from psycopg2.extras import RealDictCursor
 import psycopg2
 import os
 import re
-from app import app, conn
+from app import app, conn, cur
 
 
 @app.route('/')
+def homepage():
+    if session.get('loggedin'):
+        return render_template('homepage.html')
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/catalog')
+def catalog():
+    if session.get('loggedin'):
+        cur.execute('SELECT * FROM books;')
+        books = cur.fetchall()
+        return render_template('catalog.html', books=books)
+    else:
+        return redirect(url_for('login'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    msg = ''
+    msg = request.args.get('msg') 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -20,8 +35,9 @@ def login():
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
+                session['roles'] = account['roles'] 
                 msg = 'Logged in successfully!'
-                return render_template('homepage.html', msg=msg)
+                return redirect(url_for('homepage'))
             else:
                 msg = 'Incorrect username / password!'
     return render_template('login.html', msg=msg)
@@ -39,7 +55,7 @@ def register():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'roles' in request.form:
         username = request.form['username']
         password = request.form['password']
-        roles = request.form['roles']
+        roles = int(request.form['roles'])
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
             cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
             account = cursor.fetchone()
@@ -53,7 +69,7 @@ def register():
             else:
                 cursor.execute('INSERT INTO users (username, password, roles) VALUES (%s, %s, %s)', (username, password, roles))
                 conn.commit()
-                msg = 'You have successfully registered!'
+                return redirect(url_for('login', msg="You've been successfully registered!"))
     elif request.method == 'POST':
         msg = 'Please fill out the form!'
     return render_template('register.html', msg=msg)

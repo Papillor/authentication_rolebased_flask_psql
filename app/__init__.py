@@ -4,8 +4,10 @@ import psycopg2
 
 app = Flask(__name__)
 
+app.secret_key = 'root'
+
 conn = psycopg2.connect(
-    dbname="bookstore",
+    dbname="rbacauth",
     user=os.environ['POSTGRES_USER'],
     password=os.environ['POSTGRES_PASSWORD'],
     host="localhost",
@@ -14,4 +16,5 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-from app import routes
+from app.routes import auth
+from app.routes import crud
